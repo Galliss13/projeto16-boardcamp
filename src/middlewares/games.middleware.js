@@ -16,8 +16,8 @@ export async function verifyGameExistence (req, res, next) {
 
     const {name} = req.body;
     const gameExists = await connection.query("SELECT * FROM games WHERE name=$1", [name])
-    console.log(gameExists)
-    if (gameExists.length !== 0) {
+    console.log(gameExists.rows)
+    if (gameExists.rows.length !== 0) {
         return res.sendStatus(409)
     }
 

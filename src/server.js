@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import categoriesRoutes from './routes/categories.routes.js'
-import customersRoutes from './routes/customers.routes'
+import customersRoutes from './routes/customers.routes.js'
 import gamesRoutes from './routes/games.routes.js'
 import rentalsRoutes from './routes/rentals.routes.js'
 
