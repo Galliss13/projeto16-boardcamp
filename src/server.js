@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import categoriesRoutes from './routes/categories.routes.js'
-import clientsRoutes from './routes/clients.routes.js'
+import customersRoutes from './routes/customers.routes'
 import gamesRoutes from './routes/games.routes.js'
 import rentalsRoutes from './routes/rentals.routes.js'
 
@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use(categoriesRoutes)
-app.use(clientsRoutes)
+app.use(customersRoutes)
 app.use(gamesRoutes)
 app.use(rentalsRoutes)
 
