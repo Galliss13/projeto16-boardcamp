@@ -1,10 +1,17 @@
 import connection from "../database/database.js";
 
 export async function getCustomers(req, res) {
+  let cpf = req.query.cpf
   try {
-    const customers = await connection.query("SELECT * FROM customers");
+    if (cpf) {
+      cpf += '%'
+      const customers = await connection.query('SELECT * FROM games WHERE cpf LIKE $1', [cpf]);
+      res.send(customers.rows);
+    } else {
+      const customers = await connection.query('SELECT * FROM games');
+      res.send(customers.rows);
+    }
     console.log(customers);
-    res.send(customers.rows);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

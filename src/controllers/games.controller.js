@@ -1,9 +1,17 @@
 import connection from "../database/database.js";
 
 export async function getGames(req, res) {
+  let name = req.query.name 
   try {
-    const games = await connection.query("SELECT * FROM games");
-    res.send(games.rows);
+    if (name) {
+      name += '%'
+      const games = await connection.query('SELECT * FROM games WHERE LOWER(name) LIKE LOWER($1)', [name]);
+      res.send(games.rows);
+
+    } else {
+      const games = await connection.query("SELECT * FROM games");
+      res.send(games.rows);
+    }
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

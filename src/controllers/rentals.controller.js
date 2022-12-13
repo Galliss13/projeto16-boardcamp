@@ -1,10 +1,30 @@
 import connection from "../database/database.js";
 
 export async function getRentals(req, res) {
+  let { customerId, gameId } = req.query
   try {
-    const rentals = await connection.query("SELECT * FROM rentals");
+    if (customerId && !gameId) {
+      customerId += '%'
+      const rentals = await connection.query("SELECT * FROM rentals WHERE customerId LIKE $1", [customerId]);
+      res.send(rentals.rows);
+
+    } else if (!customerId && gameId) {
+      gameId += '%'
+      const rentals = await connection.query("SELECT * FROM rentals WHERE gameId LIKE $1", [gameId]);
+      res.send(rentals.rows);
+
+    } else if (customerId && gameId) {
+      customerId += '%'
+      gameId += '%'
+      const rentals = await connection.query("SELECT * FROM rentals WHERE customerId LIKE $1 AND gameId LIKE $2", [customerId, gameId]);
+      res.send(rentals.rows);
+      
+    } else {
+      const rentals = await connection.query("SELECT * FROM rentals");
+      res.send(rentals.rows);
+    }
+
     console.log(rentals);
-    res.send(rentals.rows);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
