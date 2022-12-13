@@ -18,24 +18,36 @@ export async function customerSchemaValidation (req, res, next) {
 export async function verifyCpfExistence (req, res, next) {
 
     const {cpf} = req.body;
-    const cpfExists = await connection.query("SELECT * FROM customers WHERE cpf=$1", [cpf])
-    console.log(cpfExists)
-    if (cpfExists.rows.length !== 0) {
-        return res.sendStatus(409)
+    try {
+        const cpfExists = await connection.query("SELECT * FROM customers WHERE cpf=$1", [cpf])
+        console.log(cpfExists)
+        if (cpfExists.rows.length !== 0) {
+            return res.sendStatus(409)
+        }
+        next()
+
+    } catch(err) {
+        console.log(err)
+        res.sendStatus(500)
     }
 
-    next()
 }
 
 export async function verifyIdExistence (req, res, next) {
 
     const {id} = req.params;
-    const idExists = await connection.query("SELECT * FROM customers WHERE id=$1", [id])
-    console.log(idExists)
-    if (idExists.rows.length !== 0) {
-        return res.sendStatus(409)
+    try {
+        const idExists = await connection.query("SELECT * FROM customers WHERE id=$1", [id])
+        console.log(idExists)
+        if (idExists.rows.length === 0) {
+            return res.sendStatus(404)
+        }
+        next()
+
+    } catch(err) {
+        console.log(err)
+        res.sendStatus(500)
     }
 
-    next()
 
 }
