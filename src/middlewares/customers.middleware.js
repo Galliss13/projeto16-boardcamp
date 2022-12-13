@@ -26,3 +26,16 @@ export async function verifyCpfExistence (req, res, next) {
 
     next()
 }
+
+export async function verifyIdExistence (req, res, next) {
+
+    const {id} = req.params;
+    const idExists = await connection.query("SELECT * FROM customers WHERE id=$1", [id])
+    console.log(idExists)
+    if (idExists.rows.length !== 0) {
+        return res.sendStatus(409)
+    }
+
+    next()
+
+}

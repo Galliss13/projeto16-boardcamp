@@ -11,7 +11,6 @@ export async function getCustomers(req, res) {
       const customers = await connection.query('SELECT * FROM games');
       res.send(customers.rows);
     }
-    console.log(customers);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
