@@ -52,6 +52,7 @@ export async function postRental(req, res) {
 
 export async function finalizeRental(req, res) {
     const {id} = req.params
+    // não consegui
 }
 
 export async function deleteRental(req, res) {

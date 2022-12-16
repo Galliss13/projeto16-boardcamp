@@ -17,7 +17,7 @@ export async function verifyCategoryExistence (req, res, next) {
     const {name} = req.body;
     const categoryExists = await connection.query("SELECT * FROM categories WHERE name=$1", [name])
     console.log(categoryExists)
-    if (categoryExists.length !== 0) {
+    if (categoryExists.rows.length !== 0) {
         return res.sendStatus(409)
     }
 

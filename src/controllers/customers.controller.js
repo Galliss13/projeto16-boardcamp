@@ -5,10 +5,10 @@ export async function getCustomers(req, res) {
   try {
     if (cpf) {
       cpf += '%'
-      const customers = await connection.query('SELECT * FROM games WHERE cpf LIKE $1', [cpf]);
+      const customers = await connection.query('SELECT * FROM customers WHERE cpf LIKE $1', [cpf]);
       res.send(customers.rows);
     } else {
-      const customers = await connection.query('SELECT * FROM games');
+      const customers = await connection.query('SELECT * FROM customers');
       res.send(customers.rows);
     }
   } catch (err) {

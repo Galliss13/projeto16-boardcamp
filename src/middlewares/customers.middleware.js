@@ -12,10 +12,6 @@ export async function customerSchemaValidation (req, res, next) {
     }
     
     const {phone, cpf} = req.body;
-    
-    if(parseInt(phone).isNaN() || parseInt(cpf).isNaN()) {
-        return res.sendStatus(400)
-    }
 
     next()
 }
